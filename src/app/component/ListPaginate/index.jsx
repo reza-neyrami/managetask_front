@@ -16,9 +16,9 @@ import {
 } from "@mui/material";
 import PropTypes from "prop-types";
 import { memo, useEffect, useState } from "react";
-import ImageUploadComponent from "../../containers/BannerSlice/ImageUploadComponent";
-import { CategoryListeStyle } from "../../containers/CategoryPage/styles";
-import CountingTextArea from "../CountingTextArea";
+import ImageUploadComponent from "../../container/BannerSlice/ImageUploadComponent.jsx";
+import { CategoryListeStyle } from "../styles.jsx";
+import CountingTextArea from "../CountingTextArea/index.jsx";
 import NotificationBox from "./../NotificationBox/index";
 
 const ListPaginate = ({

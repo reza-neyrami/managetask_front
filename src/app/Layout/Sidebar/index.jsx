@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-import { connect, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import { useNavigate } from "react-router";
 import { createStructuredSelector } from "reselect";
 
@@ -28,7 +28,7 @@ import { userRouter } from "./../userRouter";
 
 function Sidebar({ logoutData }) {
   const [openGroups, setOpenGroups] = useState(false);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const history = useNavigate();
   const auth = getAuth();
   const routes = auth.role === "admin" ? adminRouter : userRouter;

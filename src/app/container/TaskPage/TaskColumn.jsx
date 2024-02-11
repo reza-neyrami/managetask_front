@@ -1,6 +1,6 @@
 import { Avatar } from "@mui/material";
 
-const columns = [
+const taskColumn = [
     { name: "ID", field: "id", title: "Number", align: "left", editable: false },
     { name: "Title", field: "title", title: "نام", editable: true },
     {
@@ -15,4 +15,4 @@ const columns = [
     },
   ];
 
-  export default columns;
+  export default taskColumn;

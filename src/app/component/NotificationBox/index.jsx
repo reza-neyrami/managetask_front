@@ -11,8 +11,8 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { createStructuredSelector } from "reselect";
 import styled from "styled-components";
-import { notificationHideAction } from "../../containers/App/actions";
-import { makeSelectNotification } from "../../containers/App/selectors";
+import { notificationHideAction } from "../../container/App/actions.jsx";
+import { makeSelectNotification } from "../../container/App/selectors";
 
 export const NOTIFICATION_TYPE_SUCCESS = "success";
 export const NOTIFICATION_TYPE_ERROR = "error";

@@ -2,13 +2,13 @@ import DashboardPage from "./../DashboardPage/index.jsx";
 import { Grid } from "@mui/material";
 import PropTypes from "prop-types";
 import ListPaginate from "./../../component/ListPaginate/index.jsx";
-import { columns } from "./Cell.jsx";
-import { useEffect } from 'react';
+import  TaskColumn  from "./TaskColumn.jsx";
+import { useEffect } from "react";
+import { useState } from "react";
 export default function TaskPage({ category }) {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   // const dispatch = useDispatch();
-
 
   useEffect(() => {
     // getCategorys({ page, size: pageSize });
@@ -29,15 +29,15 @@ export default function TaskPage({ category }) {
           <div>
             {category?.data && (
               <ListPaginate
-                columns={columns}
+                columns={TaskColumn}
                 data={category?.data}
                 page={page}
                 size={pageSize}
                 totals={category?.total}
                 onChangePage={handlePageChange}
                 onChangePageSize={handlePageSizeChange}
-                handleClikedProduct={setSelectedProduct}
-                handleDeletedProduct={handleDeleteData}
+                // handleClikedProduct={setSelectedProduct}
+                // handleDeletedProduct={handleDeleteData}
                 // handleUpdateData={handleUpdateDataCourse}
               />
             )}
@@ -48,6 +48,6 @@ export default function TaskPage({ category }) {
   );
 }
 TaskPage.propTypes = {
-  getCategorys: PropTypes.func.isRequired,
+  // getCategorys: PropTypes.func.isRequired,
   category: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };

@@ -13,6 +13,23 @@ export function loginApi({ params }) {
   return request(config);
 }
 
+
+export function uploadAllBannerApis(file) {
+  const data = new FormData();
+  data.append('banner', file);
+
+  const config = {
+    method: 'post',
+    url: '/video/upload-banner',
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+    data,
+  };
+
+  return request(config);
+}
+
 export function registerUserApi(params) {
   const config = {
     method: "post",
