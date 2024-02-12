@@ -13,16 +13,15 @@ export function loginApi({ params }) {
   return request(config);
 }
 
-
 export function uploadAllBannerApis(file) {
   const data = new FormData();
-  data.append('banner', file);
+  data.append("banner", file);
 
   const config = {
-    method: 'post',
-    url: '/video/upload-banner',
+    method: "post",
+    url: "/video/upload-banner",
     headers: {
-      'Content-Type': 'multipart/form-data',
+      "Content-Type": "multipart/form-data",
     },
     data,
   };
@@ -45,6 +44,34 @@ export function verifyCodeApi({ username, code }) {
     method: "post",
     url: "/auth/verify",
     data: { username, code },
+  };
+
+  return request(config);
+}
+
+export function assignTask({ taskId, userIds }) {
+  const config = {
+    method: "post",
+    url: `/tasks/assignuser/${taskId}`,
+    data: { userIds },
+  };
+
+  return request(config);
+}
+
+export function userSkileApi({ skile }) {
+  const config = {
+    method: "get",
+    url: `/users/${skile}`,
+  };
+
+  return request(config);
+}
+
+export function getUserTask() {
+  const config = {
+    method: "get",
+    url: `/tasks/user`,
   };
 
   return request(config);

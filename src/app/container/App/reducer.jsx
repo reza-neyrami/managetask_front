@@ -25,9 +25,9 @@ import {
   GET_CATEGORIES,
   GET_CATEGORIES_FAIL,
   GET_CATEGORIES_SUCCESS,
-  GET_TAGS,
-  GET_TAGS_FAIL,
-  GET_TAGS_SUCCESS,
+  GET_TASK,
+  GET_TASK_FAIL,
+  GET_TASK_SUCCESS,
   GET_USERS,
   GET_USERS_FAIL,
   GET_USERS_SUCCESS,
@@ -178,17 +178,17 @@ const appReducer = (state = initialState, action) =>
         break;
       // #endregion NOTIFICATION
       // #region GET_TAGS
-      case GET_TAGS:
+      case GET_TASK:
         draft.tags.error = null;
         break;
-      case GET_TAGS_SUCCESS:
+      case GET_TASK_SUCCESS:
         draft.tags.error = null;
         draft.tags.data = Object.values(action.data);
         break;
-      case GET_TAGS_FAIL:
+      case GET_TASK_FAIL:
         draft.tags.error = action.error;
         break;
-      // #endregion GET_TAGS
+      // #endregion GET_TASK
       // #region ADD_TAG
       case ADD_TAG:
         draft.addTag.error = null;

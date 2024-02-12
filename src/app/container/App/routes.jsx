@@ -29,6 +29,6 @@ export const ROUTE_CATEGORY_MANAGE = '/dashboard/page';
 export const ROUTE_ALL_MANAGE = '/dashboard/all';
 export const ROUTE_CART = '/cart';
 export const ORDERS_ROUTE = '/orders';
-export const SHOPPING_ROUTE = '/shop';
-export const URL_BASE = 'https://heavenarte.com/';
-export const URL_BASE_API = 'https://heavenarte.com/api/';
+export const TASKFORM_ROUTE = '/dashboard/createtask';
+export const TASKASSGINED_ROUTE = '/dashboard/assigned';
+

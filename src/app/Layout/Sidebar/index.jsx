@@ -24,14 +24,16 @@ import { createStructuredSelector } from "reselect";
 import { WrapperSidebarStyles } from "./styles";
 import { getAuth } from "./../../utils/auth";
 import { adminRouter } from "./adminRouter";
-import { userRouter } from "./../userRouter";
+import { usersRouter } from './usersRouter';
+
+
 
 function Sidebar({ logoutData }) {
   const [openGroups, setOpenGroups] = useState(false);
   // const dispatch = useDispatch();
   const history = useNavigate();
   const auth = getAuth();
-  const routes = auth.role === "admin" ? adminRouter : userRouter;
+  const routes = auth.role === "admin" ? adminRouter : usersRouter;
 
   const handleClick = (link) => () => {
     history(link);

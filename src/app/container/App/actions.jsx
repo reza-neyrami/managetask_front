@@ -28,9 +28,9 @@ import {
   GET_CATEGORIES,
   GET_CATEGORIES_FAIL,
   GET_CATEGORIES_SUCCESS,
-  GET_TAGS,
-  GET_TAGS_FAIL,
-  GET_TAGS_SUCCESS,
+  GET_TASK,
+  GET_TASK_FAIL,
+  GET_TASK_SUCCESS,
   GET_USERS,
   GET_USERS_FAIL,
   GET_USERS_SUCCESS,
@@ -114,20 +114,20 @@ export function notificationHideAction() {
 // #endregion notification
 
 // #region getTags
-export function getTagsAction() {
+export function getTaskAction() {
   return {
-    type: GET_TAGS,
+    type: GET_TASK,
   };
 }
-export function getTagsSuccessAction(data) {
+export function getTaskSuccessAction(data) {
   return {
-    type: GET_TAGS_SUCCESS,
+    type: GET_TASK_SUCCESS,
     data,
   };
 }
-export function getTagsFailAction(error) {
+export function getTaskFailAction(error) {
   return {
-    type: GET_TAGS_FAIL,
+    type: GET_TASK_FAIL,
     error,
   };
 }

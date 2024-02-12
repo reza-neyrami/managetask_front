@@ -17,9 +17,9 @@ export const NOTIFICATION_TYPE_SUCCESS = 'app/App/NOTIFICATION_TYPE_SUCCESS';
 export const NOTIFICATION_HIDE = 'app/App/NOTIFICATION_HIDE';
 export const NOTIFICATION_TYPE_ERROR = 'app/App/NOTIFICATION_TYPE_ERROR';
 
-export const GET_TAGS = 'app/App/GET_TAGS';
-export const GET_TAGS_SUCCESS = 'app/App/GET_TAGS_SUCCESS';
-export const GET_TAGS_FAIL = 'app/App/GET_TAGS_FAIL';
+export const GET_TASK = 'app/App/GET_TASK';
+export const GET_TASK_SUCCESS = 'app/App/GET_TASK_SUCCESS';
+export const GET_TASK_FAIL = 'app/App/GET_TASK_FAIL';
 
 export const ADD_TAG = 'app/App/ADD_TAG';
 export const ADD_TAG_SUCCESS = 'app/App/ADD_TAG_SUCCESS';

@@ -7,12 +7,10 @@ import { BASEURL } from "./../container/constanse/constance";
 const request = axios.create({
   baseURL: `${BASEURL}/`,
   timeout: 1000000,
-  headers: {
-    // 'Content-Type': 'application/json',
-    // "Content-Type": "application/x-www-form-urlencoded",
-    'Content-Type': 'application/json',
-    Accept: "application/json",
-    "Access-Control-Allow-Origin": "*",
+  headers: { 
+    'Content-Type': 'application/json', 
+    Accept: 'application/json', 
+
   },
 });
 
@@ -20,8 +18,7 @@ request.interceptors.request.use(
   // eslint-disable-next-line func-names
   function (config) {
     const auth = getAuth();
-
-    if (auth && config.url !== "/login") {
+    if (auth.access_token !== null && config.url !== "/login") {
       // eslint-disable-next-line no-param-reassign
       config.headers.Authorization = `${auth.access_token}`;
     }
