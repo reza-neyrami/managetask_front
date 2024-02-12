@@ -39,15 +39,6 @@ export function registerUserApi(params) {
   return request(config);
 }
 
-export function verifyCodeApi({ username, code }) {
-  const config = {
-    method: "post",
-    url: "/auth/verify",
-    data: { username, code },
-  };
-
-  return request(config);
-}
 
 export function assignTask({ taskId, userIds }) {
   const config = {
@@ -59,10 +50,20 @@ export function assignTask({ taskId, userIds }) {
   return request(config);
 }
 
-export function userSkileApi({ skile }) {
+export function createTask({ params }) {
+  const config = {
+    method: "post",
+    url: `/tasks/create`,
+    data: params,
+  };
+
+  return request(config);
+}
+
+export function userSkileApi(skile) {
   const config = {
     method: "get",
-    url: `/users/${skile}`,
+    url: `/users/skile/${skile}`,
   };
 
   return request(config);

@@ -9,6 +9,8 @@ import {
 } from "@mui/material";
 import styled from "styled-components";
 import DashboardPage from "./../../DashboardPage/index";
+import { submitTask } from "./createSlice";
+import { useDispatch } from "react-redux";
 
 const Form = styled.form`
   display: flex;
@@ -44,17 +46,24 @@ const Button = styled(MuiButton)`
 `;
 
 function TaskForm() {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [status, setStatus] = useState("todo");
+  const [productData, setProductData] = useState({
+    name: "",
+    description: "",
+    startDate: "",
+    endDate: "",
+    status: "todo",
+  });
 
+  const handleSetCreate = (key, value) => {
+    setProductData({ ...productData, [key]: value });
+  };
+
+  const dispatch = useDispatch();
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    dispatch(submitTask(productData));
     // اینجا شما می‌توانید داده‌های فرم را به سرور ارسال کنید
-    console.log({ name, description, startDate, endDate, status });
+    console.log({ productData });
   };
 
   return (
@@ -62,34 +71,34 @@ function TaskForm() {
       <Form onSubmit={handleSubmit}>
         <Input
           label="نام"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={productData.name || ""}
+          onChange={(e) => handleSetCreate("name", e.target.value)}
         />
         <Input
           label="توضیحات"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          value={productData.description || ""}
+          onChange={(e) => handleSetCreate("description", e.target.value)}
           multiline
         />
         <Input
           label="تاریخ شروع"
           type="date"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
+          value={productData.startDate || ""}
+          onChange={(e) => handleSetCreate("startDate", e.target.value)}
           InputLabelProps={{ shrink: true }}
         />
         <Input
           label="تاریخ پایان"
           type="date"
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
+          value={productData.endDate || ""}
+          onChange={(e) => handleSetCreate("endDate", e.target.value)}
           InputLabelProps={{ shrink: true }}
         />
         <FormControl>
           <InputLabel>وضعیت</InputLabel>
           <SelectStyled
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
+            value={productData.status || ""}
+            onChange={(e) => handleSetCreate("status", e.target.value)}
           >
             <MenuItem value="todo">برای انجام</MenuItem>
             <MenuItem value="doing">در حال انجام</MenuItem>

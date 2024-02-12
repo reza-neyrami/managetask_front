@@ -1,14 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { userSkileApi, getUserTask,assignTask } from "./../../../api/auth";
-
-// ایجاد thunk ها
-export const fetchUsers = createAsyncThunk(
-  "users/fetchUsers",
-  async (skils) => {
-    const response = await userSkileApi(skils);
-    return response.data;
-  }
-);
+import { getUserTask } from "./../../../api/auth";
 
 export const fetchUserTasks = createAsyncThunk(
   "users/fetchUserTasks",
@@ -17,18 +8,9 @@ export const fetchUserTasks = createAsyncThunk(
     return response.data;
   }
 );
-
-export const assigniedTask = createAsyncThunk(
-  "tasks/assignTask",
-  async ({ taskId, userIds }) => {
-    const response = await assignTask({taskId, userIds});
-    return response.data;
-  }
-);
-
 // ایجاد اسلایس کاربران
-export const usersSlice = createSlice({
-  name: "usersskile",
+export const taskSlice = createSlice({
+  name: "assgnied",
   initialState: {
     loading: false,
     error: null,
@@ -52,37 +34,6 @@ export const usersSlice = createSlice({
   },
 });
 
-// ایجاد اسلایس وظایف
-// ایجاد اسلایس وظایف
-export const tasksSlice = createSlice({
-  name: "tasksass",
-  initialState: { entities: [], loading: "idle" },
-  reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchUserTasks.pending, (state) => {
-        state.loading = "loading";
-      })
-      .addCase(fetchUserTasks.fulfilled, (state, action) => {
-        state.loading = "idle";
-        state.entities = action.payload;
-      })
-      .addCase(assigniedTask.pending, (state) => {
-        state.loading = "loading";
-      })
-      .addCase(assigniedTask.fulfilled, (state, action) => {
-        state.loading = "idle";
-        // بروزرسانی وظایف بر اساس پاسخ سرور
-        const { taskId, userIds } = action.payload;
-        const task = state.entities.find((task) => task.id === taskId);
-        if (task) {
-          task.userIds = userIds;
-        }
-      });
-  },
-});
-
-export default usersSlice.reducer
 
 
-
+export default taskSlice.reducer;
