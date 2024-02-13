@@ -69,6 +69,15 @@ export function userSkileApi(skile) {
   return request(config);
 }
 
+export function getTaskUser() {
+  const config = {
+    method: "get",
+    url: `/users/getTaskUser`,
+  };
+
+  return request(config);
+}
+
 export function getUserTask() {
   const config = {
     method: "get",

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import {
   TextField,
@@ -12,6 +12,8 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadBanner } from "./../../BannerSlice/bannerSlice";
 import DashboardPage from "./../../DashboardPage/index";
+
+import { fetchTasksUser } from "./../GetTaskUser/index";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -28,16 +30,46 @@ const StyledButton = styled(Button)`
   }
 `;
 
+
+const StyledTaskDiv = styled.div`
+  margin: 1em;
+  padding: 1em;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.3s ease-in-out;
+
+  h3 {
+    margin: 0;
+    color: #333;
+  }
+
+  p {
+    margin: 0.5em 0;
+    color: #666;
+  }
+
+  &:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+  }
+`;
+
 function TaskEditor({ task, onSave, onDelete, onUploadFile, onChangeStatus }) {
   const [editedTask, setEditedTask] = useState(task || {});
   const dispatch = useDispatch();
   const { bannerSlice } = useSelector((state) => state?.bannerSlice);
-  console.log(bannerSlice);
+  const { tasks } = useSelector((state) => state?.getusertask);
+  console.log(tasks);
   const handleInputChange = (event) => {
     setEditedTask({
       ...editedTask,
       [event.target.name]: event.target.value,
     });
+  };
+
+  const handleTaskClick = (task) => {
+    setEditedTask(task);
   };
 
   const handleFileUpload = (event) => {
@@ -58,6 +90,9 @@ function TaskEditor({ task, onSave, onDelete, onUploadFile, onChangeStatus }) {
     onDelete(task?.id);
   };
 
+  useEffect(() => {
+    dispatch(fetchTasksUser());
+  }, []);
   return (
     <DashboardPage>
       <StyledDiv>
@@ -100,6 +135,19 @@ function TaskEditor({ task, onSave, onDelete, onUploadFile, onChangeStatus }) {
         >
           حذف
         </StyledButton>
+        <StyledDiv>
+          {tasks &&
+            tasks.map((task) => (
+              <StyledTaskDiv
+                key={task.id}
+                onClick={() => handleTaskClick(task)}
+              >
+                <h3>{task.name}</h3>
+                <p>{task.description}</p>
+                <p>وضعیت: {task.status}</p>
+              </StyledTaskDiv>
+            ))}
+        </StyledDiv>
       </StyledDiv>
     </DashboardPage>
   );
