@@ -5,6 +5,7 @@ import * as routes from "../routes";
 import Layout from "./../../../Layout/index";
 import TaskForm from "./../../TaskPage/CreateTask/index";
 import Assgined from './../../TaskPage/Assgined/index';
+import TaskEditor from './../../TaskPage/TaskEditor/TaskEditor';
 
 const DashboardRoute = {
   path: "/dashboard",
@@ -21,6 +22,10 @@ const DashboardRoute = {
     {
       path: `${routes.TASKASSGINED_ROUTE}`,
       element: <Assgined />,
+    },
+    {
+      path: `${routes.TASKEDITE_ROUTE}`,
+      element: <TaskEditor />,
     },
   ],
 };

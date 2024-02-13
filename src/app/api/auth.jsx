@@ -19,7 +19,7 @@ export function uploadAllBannerApis(file) {
 
   const config = {
     method: "post",
-    url: "/video/upload-banner",
+    url: `/files/upload`,
     headers: {
       "Content-Type": "multipart/form-data",
     },

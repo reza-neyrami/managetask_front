@@ -31,4 +31,5 @@ export const ROUTE_CART = '/cart';
 export const ORDERS_ROUTE = '/orders';
 export const TASKFORM_ROUTE = '/dashboard/createtask';
 export const TASKASSGINED_ROUTE = '/dashboard/assigned';
+export const TASKEDITE_ROUTE = '/dashboard/editetask';
 

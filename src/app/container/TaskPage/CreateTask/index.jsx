@@ -62,8 +62,6 @@ function TaskForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(submitTask(productData));
-    // اینجا شما می‌توانید داده‌های فرم را به سرور ارسال کنید
-    console.log({ productData });
   };
 
   return (

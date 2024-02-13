@@ -180,7 +180,7 @@ export function* loginUser(params) {
     const response =  yield call(loginApi, params);
     yield put(loginUserSuccessAction(true));
     setAuth(response.data);
-    window.location.href = '/dashboard';
+    window.location.href = '/dashboard/page';
     yield put(
       notificationShowAction(
         "با موفقیت لاگین شدید",
