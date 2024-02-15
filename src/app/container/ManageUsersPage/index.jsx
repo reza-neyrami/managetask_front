@@ -8,6 +8,7 @@ import { makeSelectUsers } from "./../App/selectors";
 import { getUsersAction } from "./../App/actions.jsx";
 
 import { useEffect, useState, useCallback } from "react";
+import { UserForm } from "./UserForm";
 
 export function ManageUsersPage() {
   const [page, setPage] = useState(1);
@@ -15,7 +16,6 @@ export function ManageUsersPage() {
   const [selectedUser, setSelectedUser] = useState(null);
   const dispatch = useDispatch();
   const users = useSelector(makeSelectUsers());
-  console.log(users);
   const emptyList = !users?.data;
 
   const getUsersFromServer = useCallback(() => {
@@ -30,7 +30,7 @@ export function ManageUsersPage() {
     setPage(p);
     setPageSize(s);
   }
-  console.log(users?.pagination?.total);
+ 
   return (
     <DashboardPage>
       <title>مدیریت کاربران</title>
@@ -45,7 +45,9 @@ export function ManageUsersPage() {
       />
 
       {selectedUser && (
-        <UserModal user={selectedUser} onClose={() => setSelectedUser(null)} />
+        <div>
+          <UserForm user={selectedUser} />
+        </div>
       )}
 
       {/* {users?.params && <LoadingWithText text="در حال دریافت لیست کاربران" />} */}

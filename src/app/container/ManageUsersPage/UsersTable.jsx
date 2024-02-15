@@ -1,45 +1,55 @@
-
 // eslint-disable-next-line no-unused-vars
-import { Chip } from '@mui/material';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import PropTypes from 'prop-types';
+import { Chip } from "@mui/material";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TablePagination from "@mui/material/TablePagination";
+import TableRow from "@mui/material/TableRow";
+import PropTypes from "prop-types";
 
-
-import { UsersTableWrapper } from './styles';
-import { USER_TYPE_ADMIN } from './../constanse/constance';
+import { UsersTableWrapper } from "./styles";
+import { USER_TYPE_ADMIN } from "./../constanse/constance";
 
 const columns = [
-  { name: 'id', title: 'کد' },
-  { name: 'name', title: 'نام' },
-  { name: 'mobile', title: 'موبایل', dir: 'ltr' },
-  { name: 'email', title: 'ایمیل' },
-  { name: 'code_assigment', title: 'کد معرف' },
+  { name: "id", title: "کد" },
+  { name: "name", title: "نام" },
+  { name: "mobile", title: "موبایل", dir: "ltr" },
+  { name: "email", title: "ایمیل" },
+  { name: "code_assigment", title: "کد معرف" },
   {
-    name: 'role',
-    title: 'نوع کاربری',
-    cast: v => (
+    name: "role",
+    title: "نوع کاربری",
+    cast: (v) => (
       <Chip
-        label={v === USER_TYPE_ADMIN ? 'مدیر' : 'کاربر'}
-        color={v === USER_TYPE_ADMIN ? 'secondary' : 'default'}
+        label={v === USER_TYPE_ADMIN ? "مدیر" : "کاربر"}
+        color={v === USER_TYPE_ADMIN ? "secondary" : "default"}
       />
     ),
   },
-  { name: 'email_verified_at', title: 'تاریخ تایید', dir: 'ltr', cast: v => v },
   {
-    name: 'verified_at',
-    title: 'وضعیت',
-    cast: v =>
-      v ? 'تایید شده' : <b style={{ color: '#f50057' }}>تایید نشده</b>,
+    name: "email_verified_at",
+    title: "تاریخ تایید",
+    dir: "ltr",
+    cast: (v) => v,
+  },
+  {
+    name: "verified_at",
+    title: "وضعیت",
+    cast: (v) =>
+      v ? "تایید شده" : <b style={{ color: "#f50057" }}>تایید نشده</b>,
   },
 ];
 
-export default function UsersTable({ users, page, size, total, onChangePage, onRowClick }) {
+export default function UsersTable({
+  users,
+  page,
+  size,
+  total,
+  onChangePage,
+  onRowClick,
+}) {
   function handleChangePage(e, newPage) {
     onChangePage(newPage + 1, size);
   }
@@ -54,7 +64,7 @@ export default function UsersTable({ users, page, size, total, onChangePage, onR
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              {columns.map(column => (
+              {columns.map((column) => (
                 <TableCell
                   key={column?.name}
                   align={column?.align}
@@ -66,14 +76,14 @@ export default function UsersTable({ users, page, size, total, onChangePage, onR
             </TableRow>
           </TableHead>
           <TableBody>
-            {users?.map(user => (
+            {users?.map((user) => (
               <TableRow
                 role="checkbox"
                 tabIndex={-1}
                 key={user.id}
                 onClick={() => onRowClick(user)}
               >
-                {columns.map(column => {
+                {columns.map((column) => {
                   const value = user[column?.name];
                   return (
                     <TableCell
@@ -105,7 +115,6 @@ export default function UsersTable({ users, page, size, total, onChangePage, onR
   );
 }
 
-
 UsersTable.propTypes = {
   users: PropTypes.arrayOf(PropTypes.object),
   page: PropTypes.number.isRequired,
@@ -114,5 +123,3 @@ UsersTable.propTypes = {
   onChangePage: PropTypes.func.isRequired,
   onRowClick: PropTypes.func.isRequired,
 };
-
-
