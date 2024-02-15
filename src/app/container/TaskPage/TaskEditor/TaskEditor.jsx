@@ -14,6 +14,7 @@ import { uploadBanner } from "./../../BannerSlice/bannerSlice";
 import DashboardPage from "./../../DashboardPage/index";
 
 import { fetchTasksUser } from "./../GetTaskUser/index";
+import { updateUserStatusTask } from "./UpdateStatuseSlice";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -29,7 +30,6 @@ const StyledButton = styled(Button)`
     color: white;
   }
 `;
-
 
 const StyledTaskDiv = styled.div`
   margin: 1em;
@@ -55,12 +55,12 @@ const StyledTaskDiv = styled.div`
   }
 `;
 
-function TaskEditor({ task, onSave, onDelete, onUploadFile, onChangeStatus }) {
+function TaskEditor({ task,  onDelete}) {
   const [editedTask, setEditedTask] = useState(task || {});
   const dispatch = useDispatch();
-  const { bannerSlice } = useSelector((state) => state?.bannerSlice);
+  const  {uploadedImage}  = useSelector((state) => state?.bannerSlice);
   const { tasks } = useSelector((state) => state?.getusertask);
-  console.log(tasks);
+  //   console.log(tasks);
   const handleInputChange = (event) => {
     setEditedTask({
       ...editedTask,
@@ -76,23 +76,22 @@ function TaskEditor({ task, onSave, onDelete, onUploadFile, onChangeStatus }) {
     dispatch(uploadBanner(event.target.files[0]));
   };
 
-  const handleStatusChange = (event) => {
-    // onChangeStatus(task?.id, event.target.value);
-
-    console.log(event.target.value);
-  };
-
   const handleSave = () => {
-    onSave(editedTask);
+    dispatch(updateUserStatusTask(editedTask));
   };
 
   const handleDelete = () => {
+    //TODO  بایستی متد دیتچ از اساین تسک رو پیاده سازی کنیم
     onDelete(task?.id);
   };
 
   useEffect(() => {
     dispatch(fetchTasksUser());
-  }, []);
+  }, [dispatch]);
+
+  useEffect(() => {
+    setEditedTask({ ...editedTask, banner: uploadedImage });
+  }, [uploadedImage, editedTask]);
   return (
     <DashboardPage>
       <StyledDiv>
@@ -114,7 +113,7 @@ function TaskEditor({ task, onSave, onDelete, onUploadFile, onChangeStatus }) {
           <Select
             name="status"
             value={editedTask?.status || ""}
-            onChange={handleStatusChange}
+            onChange={handleInputChange}
           >
             <MenuItem value="todo">برای انجام</MenuItem>
             <MenuItem value="doing">در حال انجام</MenuItem>
@@ -163,7 +162,6 @@ TaskEditor.propTypes = {
     status: PropTypes.oneOf(["todo", "doing", "done"]).isRequired,
     userId: PropTypes.number.isRequired,
   }),
-  onSave: PropTypes.func,
   onDelete: PropTypes.func,
   onUploadFile: PropTypes.func,
   onChangeStatus: PropTypes.func,

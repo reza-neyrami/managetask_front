@@ -4,25 +4,29 @@ import {
   loginUserSuccessAction,
   loginUserFailAction,
   notificationShowAction,
+  getUsersSuccessAction,
+  getUsersFailAction,
 } from "./actions.jsx";
 
-import { setAuth } from './../../utils/auth';
+import { getAllUserApi } from "./../../api/auth.jsx";
+import { setAuth } from "./../../utils/auth";
 import {
   LOGIN_USER,
   NOTIFICATION_TYPE_SUCCESS,
   NOTIFICATION_TYPE_ERROR,
+  GET_USERS,
 } from "./constants";
 
 // Individual exports for testing
 
-// export function* getUsers({ params }) {
-//   try {
-//     const response = yield call(getUsersApi, params);
-//     yield put(getUsersSuccessAction(response.data));
-//   } catch (error) {
-//     yield put(getUsersFailAction(error));
-//   }
-// }
+export function* getUsers({ params }) {
+  try {
+    const response = yield call(getAllUserApi, params);
+    yield put(getUsersSuccessAction(response.data));
+  } catch (error) {
+    yield put(getUsersFailAction(error));
+  }
+}
 
 // export function* updateUsers({ params }) {
 //   try {
@@ -177,30 +181,24 @@ import {
 
 export function* loginUser(params) {
   try {
-    const response =  yield call(loginApi, params);
+    const response = yield call(loginApi, params);
     yield put(loginUserSuccessAction(true));
     setAuth(response.data);
-    window.location.href = '/dashboard/page';
+    window.location.href = "/dashboard/page";
     yield put(
-      notificationShowAction(
-        "با موفقیت لاگین شدید",
-        NOTIFICATION_TYPE_SUCCESS
-      )
+      notificationShowAction("با موفقیت لاگین شدید", NOTIFICATION_TYPE_SUCCESS)
     );
   } catch (error) {
     yield put(loginUserFailAction(error));
     yield put(
-      notificationShowAction(
-        "لاگین با خطا مواجه شد",
-        NOTIFICATION_TYPE_ERROR
-      )
+      notificationShowAction("لاگین با خطا مواجه شد", NOTIFICATION_TYPE_ERROR)
     );
   }
 }
 
 export default function* app() {
   yield takeLatest(LOGIN_USER, loginUser);
-  // yield takeLatest(ADD_TAG, addTag);
+  yield takeLatest(GET_USERS, getUsers);
 
   // yield takeLatest(GET_CATEGORIES, getCategories);
   // yield takeLatest(ADD_CATEGORY, addCategories);

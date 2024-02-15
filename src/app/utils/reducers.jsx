@@ -8,6 +8,9 @@ import assinedSlices from "./../container/TaskPage/TaskSlice/index.jsx";
 import assigenSlice from "./../container/TaskPage/TaskSlice/assigned";
 import createTaskSlice from "./../container/TaskPage/CreateTask/createSlice";
 import userTasksSlice from "./../container/TaskPage/GetTaskUser/index";
+import tasksStatuseSlice from "./../container/TaskPage/TaskEditor/UpdateStatuseSlice";
+import reportSlice from "./../container/TaskPage/ReportTable/FetchReport/index.jsx";
+import getusersSlice from "./../container/App/UserPage/getUserSlice";
 
 const rootreducers = {
   app: appReducer,
@@ -17,6 +20,9 @@ const rootreducers = {
   assgnied: assigenSlice,
   createtask: createTaskSlice,
   getusertask: userTasksSlice,
+  updateStatus: tasksStatuseSlice,
+  report: reportSlice,
+  usersall: getusersSlice,
   // tasksAss: userTaskReducers.tasksReducer,
 };
 

@@ -3,10 +3,18 @@
 import request from "../utils/request";
 
 export function loginApi({ params }) {
-  console.log(params);
   const config = {
     method: "post",
     url: "auth/login",
+    data: params,
+  };
+
+  return request(config);
+}
+export function reportsUserApi(params) {
+  const config = {
+    method: "post",
+    url: "/files/reports/users",
     data: params,
   };
 
@@ -39,7 +47,6 @@ export function registerUserApi(params) {
   return request(config);
 }
 
-
 export function assignTask({ taskId, userIds }) {
   const config = {
     method: "post",
@@ -68,11 +75,30 @@ export function userSkileApi(skile) {
 
   return request(config);
 }
+export function updateStatus({ params }) {
+  const { taskId, ...data } = params;
+  console.log(params);
+  const config = {
+    method: "post",
+    url: `/usertasks/status/${taskId}`,
+    data,
+  };
+
+  return request(config);
+}
 
 export function getTaskUser() {
   const config = {
     method: "get",
     url: `/users/getTaskUser`,
+  };
+
+  return request(config);
+}
+export function getAllUserApi() {
+  const config = {
+    method: "get",
+    url: `/users`,
   };
 
   return request(config);

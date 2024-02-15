@@ -7,6 +7,8 @@ import TaskForm from "./../../TaskPage/CreateTask/index";
 import Assgined from './../../TaskPage/Assgined/index';
 import TaskEditor from './../../TaskPage/TaskEditor/TaskEditor';
 
+import { ManageUsersPage } from './../../ManageUsersPage/index';
+
 const DashboardRoute = {
   path: "/dashboard",
   element: <Layout />,
@@ -26,6 +28,10 @@ const DashboardRoute = {
     {
       path: `${routes.TASKEDITE_ROUTE}`,
       element: <TaskEditor />,
+    },
+    {
+      path: `${routes.ROUTE_MANAGE_USERS}`,
+      element: <ManageUsersPage />,
     },
   ],
 };

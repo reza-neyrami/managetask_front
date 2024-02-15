@@ -51,7 +51,7 @@ function TaskForm() {
     description: "",
     startDate: "",
     endDate: "",
-    status: "todo",
+    status: "",
   });
 
   const handleSetCreate = (key, value) => {

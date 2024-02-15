@@ -37,7 +37,7 @@ function Assgined() {
   const tasks = useSelector((state) => state.tasks?.data);
 
   const users = useSelector((state) => state.assgnied?.entities);
-  console.log(users);
+  // console.log(users);
   //   console.log(tasks);
   const [selectedUserIds, setSelectedUserIds] = useState([]);
   const [selectedTaskId, setSelectedTaskId] = useState("");
