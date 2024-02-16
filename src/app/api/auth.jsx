@@ -77,11 +77,31 @@ export function userSkileApi(skile) {
 }
 export function updateStatus({ params }) {
   const { taskId, ...data } = params;
-  console.log(params);
   const config = {
     method: "post",
     url: `/usertasks/status/${taskId}`,
     data,
+  };
+
+  return request(config);
+}
+
+//TODO CREATE AND UPDATE USERS MANAGE
+export function createUser(params) {
+
+  const config = {
+    method: "post",
+    url: `/users`,
+    data: params,
+  };
+
+  return request(config);
+}
+
+export function getReportByTaskIdApi(taskId) {
+  const config = {
+    method: "post",
+    url: `/files/reports/users/${taskId}`,
   };
 
   return request(config);
@@ -95,6 +115,7 @@ export function getTaskUser() {
 
   return request(config);
 }
+
 export function getAllUserApi() {
   const config = {
     method: "get",

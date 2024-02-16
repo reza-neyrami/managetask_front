@@ -10,7 +10,8 @@ import createTaskSlice from "./../container/TaskPage/CreateTask/createSlice";
 import userTasksSlice from "./../container/TaskPage/GetTaskUser/index";
 import tasksStatuseSlice from "./../container/TaskPage/TaskEditor/UpdateStatuseSlice";
 import reportSlice from "./../container/TaskPage/ReportTable/FetchReport/index.jsx";
-
+import getReportByTaskSlice from "./../container/TaskPage/ReportTable/getReportByTask/index";
+import reportsAllSlice from "../container/ManageReportsPage/getSlice";
 
 const rootreducers = {
   app: appReducer,
@@ -21,8 +22,10 @@ const rootreducers = {
   createtask: createTaskSlice,
   getusertask: userTasksSlice,
   updateStatus: tasksStatuseSlice,
+  tasksReport: getReportByTaskSlice,
   report: reportSlice,
- 
+  allReports: reportsAllSlice,
+
   // tasksAss: userTaskReducers.tasksReducer,
 };
 

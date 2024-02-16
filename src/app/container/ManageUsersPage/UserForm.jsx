@@ -1,6 +1,16 @@
 import { useState, useEffect } from "react";
+import { useDispatch } from 'react-redux';
 import PropTypes from "prop-types";
-import { TextField, Button, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { fetchCreateUsers } from './createSlice/index';
+import {
+  TextField,
+  Button,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
+
 
 export function UserForm({ user: initialUser, onSubmit }) {
   const [user, setUser] = useState(initialUser);
@@ -17,16 +27,19 @@ export function UserForm({ user: initialUser, onSubmit }) {
     });
   }
 
+  const dispatch = useDispatch();
+  // ...
+
   function handleSubmit(e) {
     e.preventDefault();
-    onSubmit(user);
+    dispatch(fetchCreateUsers(user));
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit||""}>
       <TextField
         name="username"
-        value={user.username || ""}
+        value={user?.username || ""}
         onChange={handleChange}
         label="نام کاربری"
         variant="outlined"
@@ -35,7 +48,7 @@ export function UserForm({ user: initialUser, onSubmit }) {
       />
       <TextField
         name="email"
-        value={user.email || ""}
+        value={user?.email || ""}
         onChange={handleChange}
         label="ایمیل"
         variant="outlined"
@@ -44,7 +57,7 @@ export function UserForm({ user: initialUser, onSubmit }) {
       />
       <TextField
         name="password"
-        value={user.password || ""}
+        value={user?.password || ""}
         onChange={handleChange}
         label="رمز عبور"
         variant="outlined"
@@ -57,7 +70,7 @@ export function UserForm({ user: initialUser, onSubmit }) {
           labelId="role-label"
           id="role"
           name="role"
-          value={user.role || ""}
+          value={user?.role || ""}
           onChange={handleChange}
           label="نوع کاربری"
         >
@@ -72,6 +85,11 @@ export function UserForm({ user: initialUser, onSubmit }) {
     </form>
   );
 }
+
+UserForm.propTypes = {
+  // users: PropTypes.object,
+  onSubmit: PropTypes.func,
+};
 
 UserForm.propTypes = {
   user: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),

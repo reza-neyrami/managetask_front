@@ -15,13 +15,31 @@ import DashboardPage from "./../../DashboardPage/index";
 
 import { fetchTasksUser } from "./../GetTaskUser/index";
 import { updateUserStatusTask } from "./UpdateStatuseSlice";
+import { reportFetchTask } from "./../ReportTable/getReportByTask/index";
+import { Card, CardContent, Typography, Avatar } from "@mui/material";
 
 const StyledDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 300px;
-  margin: auto;
+  .editor {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 400px;
+    margin: auto;
+  }
+  .data_editor {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    margin: auto;
+  }
+  .views {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+  .btn-logs {
+    width: 150px;
+  }
 `;
 
 const StyledButton = styled(Button)`
@@ -32,8 +50,8 @@ const StyledButton = styled(Button)`
 `;
 
 const StyledTaskDiv = styled.div`
-  margin: 1em;
-  padding: 1em;
+  margin: 10px;
+  padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
@@ -55,12 +73,25 @@ const StyledTaskDiv = styled.div`
   }
 `;
 
-function TaskEditor({ task,  onDelete}) {
+const StyledCard = styled(Card)`
+  margin: 20px;
+  background-color: #f5f5f5;
+`;
+
+const StyledDivs = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+function TaskEditor({ task, onDelete }) {
   const [editedTask, setEditedTask] = useState(task || {});
   const dispatch = useDispatch();
-  const  {uploadedImage}  = useSelector((state) => state?.bannerSlice);
+  const { uploadedImage } = useSelector((state) => state?.bannerSlice);
   const { tasks } = useSelector((state) => state?.getusertask);
-  //   console.log(tasks);
+  const entities = useSelector((state) => state?.tasksReport?.entities);
+
   const handleInputChange = (event) => {
     setEditedTask({
       ...editedTask,
@@ -69,6 +100,7 @@ function TaskEditor({ task,  onDelete}) {
   };
 
   const handleTaskClick = (task) => {
+    dispatch(reportFetchTask(task?.taskId));
     setEditedTask(task);
   };
 
@@ -87,65 +119,99 @@ function TaskEditor({ task,  onDelete}) {
 
   useEffect(() => {
     dispatch(fetchTasksUser());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     setEditedTask({ ...editedTask, banner: uploadedImage });
-  }, [uploadedImage, editedTask]);
+  }, []);
   return (
     <DashboardPage>
       <StyledDiv>
-        <TextField
-          label="نام"
-          name="name"
-          value={editedTask?.name || ""}
-          onChange={handleInputChange}
-        />
-        <TextField
-          label="توضیحات"
-          name="description"
-          value={editedTask?.description || ""}
-          onChange={handleInputChange}
-          multiline
-        />
-        <FormControl>
-          <InputLabel>وضعیت</InputLabel>
-          <Select
-            name="status"
-            value={editedTask?.status || ""}
-            onChange={handleInputChange}
-          >
-            <MenuItem value="todo">برای انجام</MenuItem>
-            <MenuItem value="doing">در حال انجام</MenuItem>
-            <MenuItem value="done">انجام شده</MenuItem>
-          </Select>
-        </FormControl>
-        <StyledButton variant="contained" component="label">
-          آپلود فایل
-          <input type="file" hidden onChange={handleFileUpload} />
-        </StyledButton>
-        <StyledButton variant="contained" color="primary" onClick={handleSave}>
-          ذخیره
-        </StyledButton>
-        <StyledButton
-          variant="contained"
-          color="secondary"
-          onClick={handleDelete}
-        >
-          حذف
-        </StyledButton>
-        <StyledDiv>
-          {tasks &&
-            tasks.map((task) => (
-              <StyledTaskDiv
-                key={task.id}
-                onClick={() => handleTaskClick(task)}
+        <StyledDivs>
+          {entities &&
+            entities.map((report) => (
+              <StyledCard
+                key={`${report.id}/${report?.taskId}_${report.userId}`}
               >
-                <h3>{task.name}</h3>
-                <p>{task.description}</p>
-                <p>وضعیت: {task.status}</p>
-              </StyledTaskDiv>
+                <CardContent>
+                  <Typography variant="h5" component="h2">
+                    {report?.name}
+                  </Typography>
+                  <Typography variant="body2" component="p">
+                    {report?.description}
+                  </Typography>
+                  <StyledDivs>
+                    <Avatar src={report?.filename} variant="rounded" />
+                  </StyledDivs>
+                </CardContent>
+              </StyledCard>
             ))}
+        </StyledDivs>
+        <div className="editor">
+          <TextField
+            label="نام"
+            name="name"
+            value={editedTask?.name || ""}
+            onChange={handleInputChange}
+          />
+          <TextField
+            label="توضیحات"
+            name="description"
+            value={editedTask?.description || ""}
+            onChange={handleInputChange}
+            multiline
+          />
+          <FormControl>
+            <InputLabel>وضعیت</InputLabel>
+            <Select
+              name="status"
+              value={editedTask?.status || ""}
+              onChange={handleInputChange}
+            >
+              <MenuItem value="todo">برای انجام</MenuItem>
+              <MenuItem value="doing">در حال انجام</MenuItem>
+              <MenuItem value="done">انجام شده</MenuItem>
+            </Select>
+          </FormControl>
+          <StyledButton variant="contained" component="label">
+            آپلود فایل
+            <input type="file" hidden onChange={handleFileUpload} />
+          </StyledButton>
+          <StyledButton
+            variant="contained"
+            color="primary"
+            onClick={handleSave}
+          >
+            ذخیره
+          </StyledButton>
+          <StyledButton
+            variant="contained"
+            color="secondary"
+            onClick={handleDelete}
+          >
+            حذف
+          </StyledButton>
+        </div>
+        <StyledDiv>
+          <div className="data_editor">
+            {tasks &&
+              tasks.map((task) => (
+                <StyledTaskDiv key={task.id}>
+                  <div className="views">
+                    <Button
+                      variant="outlined"
+                      className="btn-logs"
+                      onClick={() => handleTaskClick(task)}
+                    >
+                      دریافت گزارشات
+                    </Button>
+                    <h3>{task.name}</h3>
+                    <p>{task.description}</p>
+                    <p>وضعیت: {task.status}</p>
+                  </div>
+                </StyledTaskDiv>
+              ))}
+          </div>
         </StyledDiv>
       </StyledDiv>
     </DashboardPage>

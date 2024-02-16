@@ -8,6 +8,7 @@ import Assgined from './../../TaskPage/Assgined/index';
 import TaskEditor from './../../TaskPage/TaskEditor/TaskEditor';
 
 import { ManageUsersPage } from './../../ManageUsersPage/index';
+import { ManageReportsPage } from '../../ManageReportsPage';
 
 const DashboardRoute = {
   path: "/dashboard",
@@ -32,6 +33,10 @@ const DashboardRoute = {
     {
       path: `${routes.ROUTE_MANAGE_USERS}`,
       element: <ManageUsersPage />,
+    },
+    {
+      path: `${routes.ROUTE_MANAGE_REPORTS}`,
+      element: <ManageReportsPage />,
     },
   ],
 };

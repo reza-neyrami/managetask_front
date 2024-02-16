@@ -183,6 +183,9 @@ export function* loginUser(params) {
   try {
     const response = yield call(loginApi, params);
     yield put(loginUserSuccessAction(true));
+    if (response.data.status !== true) {
+      return false;
+    }
     setAuth(response.data);
     window.location.href = "/dashboard/page";
     yield put(

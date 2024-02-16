@@ -2,7 +2,6 @@ export const HOME_ROUTE = '/';
 export const LOGIN_ROUTE = '/login';
 export const REGISTER_ROUTE = '/register';
 export const DASHBOARD_ROUTE = '/dashboard';
-export const ROUTE_MANAGE_USERS = '/dashboard/manage-users';
 export const PRODUCT_MANEGER = '/dashboard/producte';
 export const SITE_MANEGER = '/dashboard';
 
@@ -33,3 +32,6 @@ export const TASKFORM_ROUTE = '/dashboard/createtask';
 export const TASKASSGINED_ROUTE = '/dashboard/assigned';
 export const TASKEDITE_ROUTE = '/dashboard/editetask';
 
+
+export const ROUTE_MANAGE_USERS = '/dashboard/manage-users';
+export const ROUTE_MANAGE_REPORTS = '/dashboard/manage-reports';

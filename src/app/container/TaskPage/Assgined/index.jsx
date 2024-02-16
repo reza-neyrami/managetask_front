@@ -13,6 +13,7 @@ import styled from "styled-components";
 
 import { fetchUserTasks } from "./../TaskSlice/index";
 import { assigniedTask, fetchUsers } from "./../TaskSlice/assigned";
+import DashboardPage from "./../../DashboardPage/index";
 
 const StyledForm = styled.form`
   display: flex;
@@ -58,53 +59,54 @@ function Assgined() {
   };
 
   return (
-    <StyledForm onSubmit={handleSubmit}>
-      <FormControl>
-        <InputLabel>نقش</InputLabel>
-        <Select
-          value={selectedRole}
-          onChange={(e) => setSelectedRole(e.target.value)}
-        >
-          <MenuItem value="programmer">برنامه نویس</MenuItem>
-          <MenuItem value="tester">تستر</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl>
-        <InputLabel>کاربر</InputLabel>
-        {users && (
+    <DashboardPage>
+      <StyledForm onSubmit={handleSubmit}>
+        <FormControl>
+          <InputLabel>نقش</InputLabel>
           <Select
-            multiple
-            value={selectedUserIds}
-            onChange={(e) => setSelectedUserIds(e.target.value)}
+            value={selectedRole}
+            onChange={(e) => setSelectedRole(e.target.value)}
           >
-            {users?.map((user) => (
-              <MenuItem key={user.id} value={user.id}>
-                {console.log(user.id)}
-                {user.username}
-              </MenuItem>
-            ))}
+            <MenuItem value="programmer">برنامه نویس</MenuItem>
+            <MenuItem value="tester">تستر</MenuItem>
           </Select>
-        )}
-      </FormControl>
-      <FormControl>
-        <InputLabel>وظیفه</InputLabel>
-        {tasks && (
-          <Select
-            value={selectedTaskId}
-            onChange={(e) => setSelectedTaskId(e.target.value)}
-          >
-            {tasks?.map((task) => (
-              <MenuItem key={task.id} value={task.id}>
-                {task.name}
-              </MenuItem>
-            ))}
-          </Select>
-        )}
-      </FormControl>
-      <StyledButton type="submit" variant="contained">
-        اختصاص وظیفه
-      </StyledButton>
-    </StyledForm>
+        </FormControl>
+        <FormControl>
+          <InputLabel>کاربر</InputLabel>
+          {users && (
+            <Select
+              multiple
+              value={selectedUserIds}
+              onChange={(e) => setSelectedUserIds(e.target.value)}
+            >
+              {users?.map((user) => (
+                <MenuItem key={user.id} value={user.id}>
+                  {user.username}
+                </MenuItem>
+              ))}
+            </Select>
+          )}
+        </FormControl>
+        <FormControl>
+          <InputLabel>وظیفه</InputLabel>
+          {tasks && (
+            <Select
+              value={selectedTaskId}
+              onChange={(e) => setSelectedTaskId(e.target.value)}
+            >
+              {tasks?.map((task) => (
+                <MenuItem key={task.id} value={task.id}>
+                  {task.name}
+                </MenuItem>
+              ))}
+            </Select>
+          )}
+        </FormControl>
+        <StyledButton type="submit" variant="contained">
+          اختصاص وظیفه
+        </StyledButton>
+      </StyledForm>
+    </DashboardPage>
   );
 }
 

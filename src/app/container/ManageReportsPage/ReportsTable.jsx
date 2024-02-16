@@ -11,27 +11,40 @@ import PropTypes from "prop-types";
 
 import { UsersTableWrapper } from "./styles";
 
+
+import Avatar from '@mui/material/Avatar';
+import moment from 'moment-jalaali';
+import { BASEURL } from '../constanse/constance';
+
 const columns = [
   { name: "id", title: "کد" },
+  { name: "taskId", title: "کد وظیفه" },
+  { name: "userId", title: "کد کاربر" },
   { name: "name", title: "نام" },
-  { name: "role", title: "نقش", dir: "ltr" },
-  { name: "email", title: "ایمیل" },
-  { name: "created_at", title: "تاریخ عضویت" },
-  {
-    name: "email_verified_at",
-    title: "تاریخ تایید",
-    dir: "ltr",
-    cast: (v) => v,
+  { 
+    name: "description", 
+    title: "توضیحات",
+    cast: (v) => v.split(' ').slice(0, 20).join(' ') + '...'
   },
-  {
-    name: "verified_at",
-    title: "وضعیت",
-    cast: (v) =>
-      v ? "تایید شده" : <b style={{ color: "#f50057" }}>تایید نشده</b>,
+  { 
+    name: "filename", 
+    title: "نام فایل",
+    cast: (v) => <Avatar alt="Report Image" src={`${BASEURL}${v}`} />
+  },
+  { 
+    name: "created_at", 
+    title: "تاریخ ایجاد",
+    cast: (v) => moment(v, 'YYYY-MM-DD HH:mm:ss').format('jYYYY/jMM/jDD HH:mm:ss')
+  },
+  { 
+    name: "updated_at", 
+    title: "تاریخ بروزرسانی",
+    cast: (v) => moment(v, 'YYYY-MM-DD HH:mm:ss').format('jYYYY/jMM/jDD HH:mm:ss')
   },
 ];
 
-export default function UsersTable({
+
+export default function ReportsTable({
   users,
   page,
   size,
@@ -104,7 +117,7 @@ export default function UsersTable({
   );
 }
 
-UsersTable.propTypes = {
+ReportsTable.propTypes = {
   users: PropTypes.arrayOf(PropTypes.object),
   page: PropTypes.number.isRequired,
   size: PropTypes.number.isRequired,

@@ -1,30 +1,29 @@
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 
-
-import UsersTable from "./UsersTable";
+import ReportsTable from "./ReportsTable";
 import DashboardPage from "./../DashboardPage/index";
-import { makeSelectUsers } from "./../App/selectors";
-import { getUsersAction } from "./../App/actions.jsx";
+
+
 
 import { useEffect, useState, useCallback } from "react";
-import { UserForm } from "./UserForm";
+import { fetchAllReports } from "./getSlice";
 
-export function ManageUsersPage() {
+export function ManageReportsPage() {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [selectedUser, setSelectedUser] = useState(null);
   const dispatch = useDispatch();
-  const users = useSelector(makeSelectUsers());
+  const users = useSelector((state)=>state?.allReports?.entities);
   const emptyList = !users?.data;
 
-  const getUsersFromServer = useCallback(() => {
-    dispatch(getUsersAction({ page, size: pageSize }));
-  }, [dispatch, page, pageSize]);
+  const getReportFromServer = useCallback(() => {
+    dispatch(fetchAllReports({ page, size: pageSize }));
+  }, [page, pageSize]);
 
   useEffect(() => {
-    getUsersFromServer();
-  }, [getUsersFromServer]);
+    getReportFromServer();
+  }, []);
 
   function handlePageChange(p, s) {
     setPage(p);
@@ -35,7 +34,7 @@ export function ManageUsersPage() {
     <DashboardPage>
       <title>مدیریت کاربران</title>
       <meta name="description" content="مدیریت کاربران" />
-      <UsersTable
+      <ReportsTable
         users={users?.data}
         page={page}
         size={pageSize}
@@ -44,15 +43,11 @@ export function ManageUsersPage() {
         onRowClick={setSelectedUser}
       />
 
-      <div>
-        <UserForm user={selectedUser} />
-      </div>
-
       {/* {users?.params && <LoadingWithText text="در حال دریافت لیست کاربران" />} */}
     </DashboardPage>
   );
 }
 
-ManageUsersPage.propTypes = {};
+ManageReportsPage.propTypes = {};
 
-export default ManageUsersPage;
+export default ManageReportsPage;
