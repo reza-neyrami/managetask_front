@@ -9,3 +9,19 @@ export function getAllReportApi() {
   
     return request(config);
   }
+export function getAllTasksApi() {
+    const config = {
+      method: "get",
+      url: `/tasks`,
+    };
+  
+    return request(config);
+  }
+export function getAllManageFilesApi() {
+    const config = {
+      method: "get",
+      url: `/files/list`,
+    };
+  
+    return request(config);
+  }

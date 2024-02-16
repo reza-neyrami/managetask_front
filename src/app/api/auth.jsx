@@ -57,6 +57,16 @@ export function assignTask({ taskId, userIds }) {
   return request(config);
 }
 
+export function deassignTask({ taskId, userIds }) {
+  const config = {
+    method: "delete",
+    url: `/tasks/deassignuser/${taskId}`,
+    data: { userIds },
+  };
+
+  return request(config);
+}
+
 export function createTask({ params }) {
   const config = {
     method: "post",
@@ -91,7 +101,7 @@ export function createUser(params) {
 
   const config = {
     method: "post",
-    url: `/users`,
+    url: `/users/upOrCreate`,
     data: params,
   };
 

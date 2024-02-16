@@ -1,26 +1,29 @@
 // import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 
-import ReportsTable from "./ReportsTable";
-import DashboardPage from "./../DashboardPage/index";
+
+
 
 import { useEffect, useState, useCallback } from "react";
-import { fetchAllReports } from "./getSlice";
+import { fetchAllTasksReports } from "./getSlice";
+import TasksTable from './TasksTable';
+import DashboardPage from './../../DashboardPage/index';
 
-export function ManageReportsPage() {
+export function ManageTasksPage() {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   // const [selectedUser, setSelectedUser] = useState(null);
   const dispatch = useDispatch();
-  const users = useSelector((state) => state?.allReports?.entities);
+  const users = useSelector((state) => state?.alltasks?.entities);
+  
 
-  const getReportFromServer = useCallback(() => {
-    dispatch(fetchAllReports({ page, size: pageSize }));
+  const getTasksFromServer = useCallback(() => {
+    dispatch(fetchAllTasksReports({ page, size: pageSize }));
   }, [page, pageSize, dispatch]);
 
   useEffect(() => {
-    getReportFromServer();
-  }, [getReportFromServer]);
+    getTasksFromServer();
+  }, []);
 
   function handlePageChange(p, s) {
     setPage(p);
@@ -29,14 +32,15 @@ export function ManageReportsPage() {
 
   return (
     <DashboardPage>
-      <title>مدیریت گزارشات</title>
-      <meta name="description" content="مدیریت گزارشتات" />
-      <ReportsTable
+      <title>مدیریت کاربران</title>
+      <meta name="description" content="مدیریت کاربران" />
+      <TasksTable
         users={users?.data}
         page={page}
         size={pageSize}
         total={users?.pagination?.total || 10}
         onChangePage={handlePageChange}
+
       />
 
       {/* {users?.params && <LoadingWithText text="در حال دریافت لیست کاربران" />} */}
@@ -44,6 +48,6 @@ export function ManageReportsPage() {
   );
 }
 
-ManageReportsPage.propTypes = {};
+ManageTasksPage.propTypes = {};
 
-export default ManageReportsPage;
+export default ManageTasksPage;

@@ -12,6 +12,9 @@ import tasksStatuseSlice from "./../container/TaskPage/TaskEditor/UpdateStatuseS
 import reportSlice from "./../container/TaskPage/ReportTable/FetchReport/index.jsx";
 import getReportByTaskSlice from "./../container/TaskPage/ReportTable/getReportByTask/index";
 import reportsAllSlice from "../container/ManageReportsPage/getSlice";
+import  tasksDeassignSlice  from '../container/TaskPage/TaskEditor/deleteAssgined';
+import tasksallAllSlice from './../container/TaskPage/ManageTasksPage/getSlice/index';
+import fileSlice from './../container/ManageReportsPage/Files/filesSlice';
 
 const rootreducers = {
   app: appReducer,
@@ -25,6 +28,9 @@ const rootreducers = {
   tasksReport: getReportByTaskSlice,
   report: reportSlice,
   allReports: reportsAllSlice,
+  deassign: tasksDeassignSlice,
+  alltasks:tasksallAllSlice,
+  filelist:fileSlice
 
   // tasksAss: userTaskReducers.tasksReducer,
 };

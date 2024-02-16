@@ -14,37 +14,62 @@ import { UsersTableWrapper } from "./styles";
 
 import Avatar from '@mui/material/Avatar';
 import moment from 'moment-jalaali';
-import { BASEURL } from '../constanse/constance';
+import { BASEURL } from './../../constanse/constance';
+
 
 const columns = [
   { name: "id", title: "کد" },
-  { name: "taskId", title: "کد وظیفه" },
+  {
+    name: "taskId",
+    title: "کد وظیفه",
+    cast: () =>
+      `task${String(Math.floor(Math.random() * 9999)).padStart(4, "0")}`,
+  },
   { name: "userId", title: "کد کاربر" },
   { name: "name", title: "نام" },
-  { 
-    name: "description", 
+  {
+    name: "description",
     title: "توضیحات",
-    cast: (v) => v.split(' ').slice(0, 20).join(' ') + '...'
+    cast: () =>
+      `This is a description for task${String(
+        Math.floor(Math.random() * 9999)
+      ).padStart(4, "0")}`,
   },
-  { 
-    name: "filename", 
+  {
+    name: "filename",
     title: "نام فایل",
-    cast: (v) => <Avatar alt="Report Image" src={`${BASEURL}${v}`} />
+    cast: (v) => <Avatar alt="Report Image" src={`${BASEURL}${v}`} />,
   },
-  { 
-    name: "created_at", 
+  {
+    name: "created_at",
     title: "تاریخ ایجاد",
-    cast: (v) => moment(v, 'YYYY-MM-DD HH:mm:ss').format('jYYYY/jMM/jDD HH:mm:ss')
+    cast: () =>
+      moment()
+        .subtract(Math.floor(Math.random() * 10), "days")
+        .format("jYYYY/jMM/jDD HH:mm:ss"),
   },
-  { 
-    name: "updated_at", 
+  {
+    name: "updated_at",
     title: "تاریخ بروزرسانی",
-    cast: (v) => moment(v, 'YYYY-MM-DD HH:mm:ss').format('jYYYY/jMM/jDD HH:mm:ss')
+    cast: () =>
+      moment()
+        .add(Math.floor(Math.random() * 10), "days")
+        .format("jYYYY/jMM/jDD HH:mm:ss"),
+  },
+  {
+    name: "status",
+    title: "وضعیت",
+  },
+  {
+    name: "randomUserId",
+    title: "کد کاربر تصادفی",
   },
 ];
 
 
-export default function ReportsTable({
+
+
+export default function TasksTable({
   users,
   page,
   size,
@@ -117,7 +142,7 @@ export default function ReportsTable({
   );
 }
 
-ReportsTable.propTypes = {
+TasksTable.propTypes = {
   users: PropTypes.arrayOf(PropTypes.object),
   page: PropTypes.number,
   size: PropTypes.number,

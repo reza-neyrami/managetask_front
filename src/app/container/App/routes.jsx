@@ -35,3 +35,5 @@ export const TASKEDITE_ROUTE = '/dashboard/editetask';
 
 export const ROUTE_MANAGE_USERS = '/dashboard/manage-users';
 export const ROUTE_MANAGE_REPORTS = '/dashboard/manage-reports';
+export const ROUTE_MANAGE_TASKS = '/dashboard/manage-tasks';
+export const ROUTE_MANAGE_FILES = '/dashboard/manage-files';

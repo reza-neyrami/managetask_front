@@ -16,6 +16,7 @@ import DashboardPage from "./../../DashboardPage/index";
 import { fetchTasksUser } from "./../GetTaskUser/index";
 import { updateUserStatusTask } from "./UpdateStatuseSlice";
 import { reportFetchTask } from "./../ReportTable/getReportByTask/index";
+import { deassignTask } from '../../../api/auth';
 import { Card, CardContent, Typography, Avatar } from "@mui/material";
 
 const StyledDiv = styled.div`
@@ -112,9 +113,10 @@ function TaskEditor({ task, onDelete }) {
     dispatch(updateUserStatusTask(editedTask));
   };
 
-  const handleDelete = () => {
+  const handleDelete = (task) => {
     //TODO  بایستی متد دیتچ از اساین تسک رو پیاده سازی کنیم
-    onDelete(task?.id);
+    dispatch(deassignTask({ taskId: task.taskId, userIds: task.userId }))
+
   };
 
   useEffect(() => {
@@ -208,6 +210,13 @@ function TaskEditor({ task, onDelete }) {
                     <h3>{task.name}</h3>
                     <p>{task.description}</p>
                     <p>وضعیت: {task.status}</p>
+                    <Button
+                      variant="outlined"
+                      className="btn-logs"
+                      onClick={() => handleDelete(task)}
+                    >
+                     حذف اساین
+                    </Button>
                   </div>
                 </StyledTaskDiv>
               ))}
